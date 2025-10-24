@@ -16,7 +16,6 @@ const PessoaFormulario = ({ onAdicionar }) => {
       [name]: value
     }));
     
-    // Limpar mensagens de erro/sucesso quando o usuário digita
     if (error) setError(null);
     if (success) setSuccess(null);
   };
@@ -24,7 +23,6 @@ const PessoaFormulario = ({ onAdicionar }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validação básica
     if (!formData.nome.trim()) {
       setError('Nome é obrigatório');
       return;
@@ -46,11 +44,9 @@ const PessoaFormulario = ({ onAdicionar }) => {
       
       await onAdicionar(novaPessoa);
       
-      // Limpar formulário após sucesso
       setFormData({ nome: '', idade: '' });
       setSuccess('Pessoa adicionada com sucesso!');
       
-      // Limpar mensagem de sucesso após 3 segundos
       setTimeout(() => setSuccess(null), 3000);
       
     } catch (err) {
@@ -63,22 +59,22 @@ const PessoaFormulario = ({ onAdicionar }) => {
   return (
     <form onSubmit={handleSubmit}>
       {error && (
-        <div className="alert alert-danger" role="alert">
-          <i className="fas fa-exclamation-triangle me-2"></i>
+        <div className="alert alert-danger">
+          <i className="fas fa-exclamation-triangle"></i>
           {error}
         </div>
       )}
       
       {success && (
-        <div className="alert alert-success" role="alert">
-          <i className="fas fa-check-circle me-2"></i>
+        <div className="alert alert-success">
+          <i className="fas fa-check-circle"></i>
           {success}
         </div>
       )}
 
-      <div className="mb-3">
+      <div className="form-group">
         <label htmlFor="nome" className="form-label">
-          <i className="fas fa-user me-2"></i>
+          <i className="fas fa-user"></i>
           Nome *
         </label>
         <input
@@ -94,9 +90,9 @@ const PessoaFormulario = ({ onAdicionar }) => {
         />
       </div>
 
-      <div className="mb-3">
+      <div className="form-group">
         <label htmlFor="idade" className="form-label">
-          <i className="fas fa-birthday-cake me-2"></i>
+          <i className="fas fa-birthday-cake"></i>
           Idade *
         </label>
         <input
@@ -116,25 +112,26 @@ const PessoaFormulario = ({ onAdicionar }) => {
 
       <button
         type="submit"
-        className="btn btn-primary w-100"
+        className="btn btn-primary"
+        style={{ width: '100%' }}
         disabled={loading || !formData.nome.trim() || !formData.idade}
       >
         {loading ? (
           <>
-            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            <div className="spinner"></div>
             Adicionando...
           </>
         ) : (
           <>
-            <i className="fas fa-plus me-2"></i>
+            <i className="fas fa-plus"></i>
             Adicionar Pessoa
           </>
         )}
       </button>
 
-      <div className="mt-3">
+      <div style={{ marginTop: '1rem' }}>
         <small className="text-muted">
-          <i className="fas fa-info-circle me-1"></i>
+          <i className="fas fa-info-circle"></i>
           Os dados serão salvos no banco PostgreSQL via API REST
         </small>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
 import PessoaLista from './components/PessoaLista';
 import PessoaFormulario from './components/PessoaFormulario';
 import PessoaService from './services/PessoaService';
@@ -7,8 +8,8 @@ function App() {
   const [pessoas, setPessoas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('listar');
 
-  // Carregar pessoas ao inicializar o componente
   useEffect(() => {
     carregarPessoas();
   }, []);
@@ -53,76 +54,78 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="row">
-        <div className="col-12">
-          <h1 className="text-center mb-4">
-            <i className="fas fa-users me-2"></i>
-            Cliente React - API REST Pessoas
-          </h1>
+    <div>
+      <Header activeTab={activeTab} onTabChange={setActiveTab} />
+      
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <h1 className="text-center mb-4">
+              
+              Sistema de Gerenciamento de Pessoas
+            </h1>
           
           {error && (
-            <div className="alert alert-danger" role="alert">
-              <i className="fas fa-exclamation-triangle me-2"></i>
+            <div className="alert alert-danger">
+              <i className="fas fa-exclamation-triangle"></i>
               {error}
               <button 
                 type="button" 
-                className="btn-close ms-2" 
                 onClick={() => setError(null)}
-                aria-label="Close"
-              ></button>
+                style={{ background: 'none', border: 'none', float: 'right', cursor: 'pointer' }}
+              >
+                ×
+              </button>
             </div>
           )}
 
-          <div className="row">
-            <div className="col-md-6">
-              <div className="card">
-                <div className="card-header">
-                  <h5 className="mb-0">
-                    <i className="fas fa-plus me-2"></i>
-                    Adicionar Nova Pessoa
-                  </h5>
-                </div>
-                <div className="card-body">
-                  <PessoaFormulario onAdicionar={adicionarPessoa} />
-                </div>
-              </div>
-            </div>
-            
-            <div className="col-md-6">
-              <div className="card">
-                <div className="card-header d-flex justify-content-between align-items-center">
-                  <h5 className="mb-0">
-                    <i className="fas fa-list me-2"></i>
-                    Lista de Pessoas ({pessoas.length})
-                  </h5>
-                  <button 
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={carregarPessoas}
-                    disabled={loading}
-                  >
-                    <i className="fas fa-sync-alt me-1"></i>
-                    {loading ? 'Carregando...' : 'Atualizar'}
-                  </button>
-                </div>
-                <div className="card-body">
-                  <PessoaLista 
-                    pessoas={pessoas} 
-                    onDeletar={deletarPessoa}
-                    loading={loading}
-                  />
+          {activeTab === 'cadastrar' && (
+            <div className="row justify-content-center">
+              <div className="col-md-8">
+                <div className="card">
+                  <div className="card-header bg-primary">
+                    <h5>
+                      <i className="fas fa-plus"></i>
+                      Cadastrar Nova Pessoa
+                    </h5>
+                  </div>
+                  <div className="card-body">
+                    <PessoaFormulario onAdicionar={adicionarPessoa} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="mt-4">
-            <div className="alert alert-info" role="alert">
-              <h6><i className="fas fa-info-circle me-2"></i>Informações da Aplicação</h6>
-              <p className="mb-1"><strong>Backend:</strong> Spring Boot (Porta 8080)</p>
-              <p className="mb-1"><strong>Frontend:</strong> React (Porta 3000)</p>
-              <p className="mb-0"><strong>Banco:</strong> PostgreSQL via Docker</p>
+          {activeTab === 'listar' && (
+            <div className="row justify-content-center">
+              <div className="col-md-10">
+                <div className="card">
+                  <div className="card-header bg-success">
+                    <h5>
+                      <i className="fas fa-list"></i>
+                      Lista de Pessoas ({pessoas.length})
+                    </h5>
+                    <button 
+                      className="btn btn-light btn-sm"
+                      onClick={carregarPessoas}
+                      disabled={loading}
+                    >
+                      <i className="fas fa-sync-alt"></i>
+                      {loading ? 'Carregando...' : 'Atualizar'}
+                    </button>
+                  </div>
+                  <div className="card-body">
+                    <PessoaLista 
+                      pessoas={pessoas} 
+                      onDeletar={deletarPessoa}
+                      loading={loading}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
+          )}
           </div>
         </div>
       </div>

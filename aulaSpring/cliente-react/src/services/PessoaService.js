@@ -1,14 +1,9 @@
 import axios from 'axios';
 
-// Detectar se estamos no Codespaces ou local
 const isCodespaces = window.location.hostname.includes('github.dev') || window.location.hostname.includes('codespaces');
 const API_BASE_URL = isCodespaces 
   ? `https://expert-winner-97545wxw66jrc777j-8080.app.github.dev/api/pessoas`
   : 'http://localhost:8080/api/pessoas';
-
-// Log para debug
-console.log('🔍 Ambiente detectado:', isCodespaces ? 'Codespaces' : 'Local');
-console.log('🌐 URL da API:', API_BASE_URL);
 
 class PessoaService {
   constructor() {
@@ -20,7 +15,6 @@ class PessoaService {
     });
   }
 
-  // Listar todas as pessoas
   async listarPessoas() {
     try {
       const response = await this.api.get('');
@@ -31,7 +25,6 @@ class PessoaService {
     }
   }
 
-  // Buscar pessoa por ID
   async buscarPessoaPorId(id) {
     try {
       const response = await this.api.get(`/${id}`);
@@ -42,7 +35,6 @@ class PessoaService {
     }
   }
 
-  // Criar nova pessoa
   async criarPessoa(pessoa) {
     try {
       const response = await this.api.post('', pessoa);
@@ -53,7 +45,6 @@ class PessoaService {
     }
   }
 
-  // Deletar pessoa
   async deletarPessoa(id) {
     try {
       await this.api.delete(`/${id}`);
