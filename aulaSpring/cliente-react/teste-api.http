@@ -1,0 +1,8 @@
+### Testar API REST 
+#Teste local
+GET http://localhost:8080/api/pessoas
+Content-Type: application/json
+
+#Teste no Codespaces
+GET https://expert-winner-97545wxw66jrc777j-8080.app.github.dev/api/pessoas
+Content-Type: application/json

@@ -130,10 +130,6 @@ const PessoaFormulario = ({ onAdicionar }) => {
       </button>
 
       <div style={{ marginTop: '1rem' }}>
-        <small className="text-muted">
-          <i className="fas fa-info-circle"></i>
-          Os dados serão salvos no banco PostgreSQL via API REST
-        </small>
       </div>
     </form>
   );

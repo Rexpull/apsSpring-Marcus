@@ -61,7 +61,6 @@ const PessoaLista = ({ pessoas, onDeletar, loading }) => {
       
       <div style={{ marginTop: '1rem' }}>
         <small className="text-muted">
-          <i className="fas fa-info-circle"></i>
           Total de {pessoas.length} pessoa(s) cadastrada(s)
         </small>
       </div>
