@@ -59,23 +59,23 @@ const PessoaFormulario = ({ onAdicionar }) => {
   return (
     <form onSubmit={handleSubmit}>
       {error && (
-        <div className="alert alert-danger">
-          <i className="fas fa-exclamation-triangle"></i>
-          {error}
+        <div className="alert alert-danger" style={{ borderRadius: '8px', border: 'none' }}>
+          <i className="fas fa-times-circle me-2"></i>
+          <strong>Erro:</strong> {error}
         </div>
       )}
       
       {success && (
-        <div className="alert alert-success">
-          <i className="fas fa-check-circle"></i>
-          {success}
+        <div className="alert alert-success" style={{ borderRadius: '8px', border: 'none' }}>
+          <i className="fas fa-check me-2"></i>
+          <strong>Sucesso!</strong> {success}
         </div>
       )}
 
-      <div className="form-group">
-        <label htmlFor="nome" className="form-label">
-          <i className="fas fa-user"></i>
-          Nome *
+      <div className="mb-3">
+        <label htmlFor="nome" className="form-label fw-semibold" style={{ color: '#495057', marginBottom: '0.5rem' }}>
+          <i className="fas fa-id-card me-2 text-primary"></i>
+          Nome Completo <span className="text-danger">*</span>
         </label>
         <input
           type="text"
@@ -84,16 +84,17 @@ const PessoaFormulario = ({ onAdicionar }) => {
           name="nome"
           value={formData.nome}
           onChange={handleChange}
-          placeholder="Digite o nome da pessoa"
+          placeholder="Informe o nome completo"
           disabled={loading}
+          style={{ borderRadius: '6px', padding: '0.75rem' }}
           required
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="idade" className="form-label">
-          <i className="fas fa-birthday-cake"></i>
-          Idade *
+      <div className="mb-4">
+        <label htmlFor="idade" className="form-label fw-semibold" style={{ color: '#495057', marginBottom: '0.5rem' }}>
+          <i className="fas fa-calendar-alt me-2 text-primary"></i>
+          Idade <span className="text-danger">*</span>
         </label>
         <input
           type="number"
@@ -102,29 +103,40 @@ const PessoaFormulario = ({ onAdicionar }) => {
           name="idade"
           value={formData.idade}
           onChange={handleChange}
-          placeholder="Digite a idade"
+          placeholder="Informe a idade"
           min="1"
           max="150"
           disabled={loading}
+          style={{ borderRadius: '6px', padding: '0.75rem' }}
           required
         />
+        <small className="form-text text-muted" style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>
+          Idade deve ser um valor entre 1 e 150 anos
+        </small>
       </div>
 
       <button
         type="submit"
-        className="btn btn-primary"
-        style={{ width: '100%' }}
+        className="btn btn-primary w-100"
+        style={{ 
+          borderRadius: '8px',
+          padding: '0.75rem',
+          fontSize: '1rem',
+          fontWeight: '600',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px'
+        }}
         disabled={loading || !formData.nome.trim() || !formData.idade}
       >
         {loading ? (
           <>
-            <div className="spinner"></div>
-            Adicionando...
+            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Salvando...
           </>
         ) : (
           <>
-            <i className="fas fa-plus"></i>
-            Adicionar Pessoa
+            <i className="fas fa-save me-2"></i>
+            Salvar Registro
           </>
         )}
       </button>
