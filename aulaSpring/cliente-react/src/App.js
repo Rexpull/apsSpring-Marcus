@@ -101,7 +101,7 @@ function App() {
             <div className="row justify-content-center">
               <div className="col-md-10">
                 <div className="card">
-                  <div className="card-header bg-success">
+                  <div className="card-header bg-info">
                     <h5>
                       <i className="fas fa-list"></i>
                       Lista de Pessoas ({pessoas.length})

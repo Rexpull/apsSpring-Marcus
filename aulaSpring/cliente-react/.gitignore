@@ -1,0 +1,12 @@
+node_modules
+.vscode
+# Keep environment variables out of version control
+.env
+*.log
+.flaskenv*
+!.env.project
+!.env.vault
+
+logs/
+
+dist
